@@ -38,7 +38,7 @@ print("Merging clinical and expression datasets...")
 merged_df = pd.merge(clinical, expr_t, left_on="Sample ID", right_index=True, how="inner")
 print(f"Merged dataset has {merged_df.shape[0]} samples after merging.")
 # -------------------- THE FIX IS HERE --------------------
-# NEW STEP: Remove any columns that are completely empty.
+# First STEP: Remove any columns that are completely empty.
 # This will find and delete the "Unnamed" phantom columns.
 print("Removing completely empty columns from the dataset...")
 merged_df.dropna(axis=1, how='all', inplace=True)
@@ -80,4 +80,5 @@ final_df.to_csv(OUTPUT_FILE, index=False)
 print("\n--- Process Complete ---")
 print(f"Final file created: {OUTPUT_FILE}")
 print(f"Number of samples in final file: {final_df.shape[0]}")
+
 print(f"Number of columns in final file: {final_df.shape[1]} ({len(final_clinical_cols)} clinical + {len(top_genes)} genes)")
